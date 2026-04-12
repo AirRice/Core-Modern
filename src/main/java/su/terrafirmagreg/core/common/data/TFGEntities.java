@@ -2,6 +2,8 @@ package su.terrafirmagreg.core.common.data;
 
 import com.tterrag.registrate.util.entry.EntityEntry;
 
+import net.minecraft.client.model.geom.ModelLayers;
+import net.minecraft.client.renderer.entity.CamelRenderer;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.level.levelgen.Heightmap;
@@ -33,6 +35,7 @@ import su.terrafirmagreg.core.common.entity.animals.tfcmongoose.TFCMongooseRende
 import su.terrafirmagreg.core.common.entity.astikorcarts.RNRPlow;
 import su.terrafirmagreg.core.common.entity.astikorcarts.RNRPlowModel;
 import su.terrafirmagreg.core.common.entity.astikorcarts.RNRPlowRenderer;
+import su.terrafirmagreg.core.common.entity.camel.TFCCamel;
 import su.terrafirmagreg.core.common.entity.glacianram.TFCGlacianRam;
 import su.terrafirmagreg.core.common.entity.glacianram.TFCGlacianRamModel;
 import su.terrafirmagreg.core.common.entity.glacianram.TFCGlacianRamRenderer;
@@ -130,6 +133,13 @@ public class TFGEntities {
             .attributes(TFCMongoose::createAttributes)
             .renderer(() -> TFCMongooseRenderer::new)
             .spawnPlacement(SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, TFCMongoose::spawnRules)
+            .register();
+
+    public static final EntityEntry<TFCCamel> CAMEL = TFGCore.REGISTRATE.entity("camel", TFCCamel::makeTFCCamel, MobCategory.CREATURE)
+            .properties(p -> p.sized(1.7F, 2.375F).clientTrackingRange(10))
+            .loot((prov, ctx) -> prov.add(ctx, new LootTable.Builder()))
+            .attributes(TFCCamel::createAttributes)
+            .renderer(() -> c -> new CamelRenderer(c, ModelLayers.CAMEL))
             .register();
 
     public static final EntityEntry<Rocket> TIER_1_DOUBLE_ROCKET = TFGCore.REGISTRATE.entity("tier_1_double_rocket", RocketHelper::makeRocket, MobCategory.MISC)
